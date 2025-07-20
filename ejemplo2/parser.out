@@ -1,0 +1,231 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> config
+Rule 1     config -> config_item
+Rule 2     config -> config config_item
+Rule 3     config_item -> auto
+Rule 4     config_item -> iface
+Rule 5     auto -> AUTO INTERFACE NEWLINE
+Rule 6     iface -> IFACE INTERFACE FAMILY METHOD NEWLINE directives
+Rule 7     directives -> directive NEWLINE
+Rule 8     directives -> directives directive NEWLINE
+Rule 9     directive -> DIRECTIVE IP
+
+Terminals, with rules where they appear
+
+AUTO                 : 5
+DIRECTIVE            : 9
+FAMILY               : 6
+IFACE                : 6
+INTERFACE            : 5 6
+IP                   : 9
+METHOD               : 6
+NEWLINE              : 5 6 7 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+auto                 : 3
+config               : 2 0
+config_item          : 1 2
+directive            : 7 8
+directives           : 6 8
+iface                : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . config
+    (1) config -> . config_item
+    (2) config -> . config config_item
+    (3) config_item -> . auto
+    (4) config_item -> . iface
+    (5) auto -> . AUTO INTERFACE NEWLINE
+    (6) iface -> . IFACE INTERFACE FAMILY METHOD NEWLINE directives
+
+    AUTO            shift and go to state 5
+    IFACE           shift and go to state 6
+
+    config                         shift and go to state 1
+    config_item                    shift and go to state 2
+    auto                           shift and go to state 3
+    iface                          shift and go to state 4
+
+state 1
+
+    (0) S' -> config .
+    (2) config -> config . config_item
+    (3) config_item -> . auto
+    (4) config_item -> . iface
+    (5) auto -> . AUTO INTERFACE NEWLINE
+    (6) iface -> . IFACE INTERFACE FAMILY METHOD NEWLINE directives
+
+    AUTO            shift and go to state 5
+    IFACE           shift and go to state 6
+
+    config_item                    shift and go to state 7
+    auto                           shift and go to state 3
+    iface                          shift and go to state 4
+
+state 2
+
+    (1) config -> config_item .
+
+    AUTO            reduce using rule 1 (config -> config_item .)
+    IFACE           reduce using rule 1 (config -> config_item .)
+    $end            reduce using rule 1 (config -> config_item .)
+
+
+state 3
+
+    (3) config_item -> auto .
+
+    AUTO            reduce using rule 3 (config_item -> auto .)
+    IFACE           reduce using rule 3 (config_item -> auto .)
+    $end            reduce using rule 3 (config_item -> auto .)
+
+
+state 4
+
+    (4) config_item -> iface .
+
+    AUTO            reduce using rule 4 (config_item -> iface .)
+    IFACE           reduce using rule 4 (config_item -> iface .)
+    $end            reduce using rule 4 (config_item -> iface .)
+
+
+state 5
+
+    (5) auto -> AUTO . INTERFACE NEWLINE
+
+    INTERFACE       shift and go to state 8
+
+
+state 6
+
+    (6) iface -> IFACE . INTERFACE FAMILY METHOD NEWLINE directives
+
+    INTERFACE       shift and go to state 9
+
+
+state 7
+
+    (2) config -> config config_item .
+
+    AUTO            reduce using rule 2 (config -> config config_item .)
+    IFACE           reduce using rule 2 (config -> config config_item .)
+    $end            reduce using rule 2 (config -> config config_item .)
+
+
+state 8
+
+    (5) auto -> AUTO INTERFACE . NEWLINE
+
+    NEWLINE         shift and go to state 10
+
+
+state 9
+
+    (6) iface -> IFACE INTERFACE . FAMILY METHOD NEWLINE directives
+
+    FAMILY          shift and go to state 11
+
+
+state 10
+
+    (5) auto -> AUTO INTERFACE NEWLINE .
+
+    AUTO            reduce using rule 5 (auto -> AUTO INTERFACE NEWLINE .)
+    IFACE           reduce using rule 5 (auto -> AUTO INTERFACE NEWLINE .)
+    $end            reduce using rule 5 (auto -> AUTO INTERFACE NEWLINE .)
+
+
+state 11
+
+    (6) iface -> IFACE INTERFACE FAMILY . METHOD NEWLINE directives
+
+    METHOD          shift and go to state 12
+
+
+state 12
+
+    (6) iface -> IFACE INTERFACE FAMILY METHOD . NEWLINE directives
+
+    NEWLINE         shift and go to state 13
+
+
+state 13
+
+    (6) iface -> IFACE INTERFACE FAMILY METHOD NEWLINE . directives
+    (7) directives -> . directive NEWLINE
+    (8) directives -> . directives directive NEWLINE
+    (9) directive -> . DIRECTIVE IP
+
+    DIRECTIVE       shift and go to state 16
+
+    directives                     shift and go to state 14
+    directive                      shift and go to state 15
+
+state 14
+
+    (6) iface -> IFACE INTERFACE FAMILY METHOD NEWLINE directives .
+    (8) directives -> directives . directive NEWLINE
+    (9) directive -> . DIRECTIVE IP
+
+    AUTO            reduce using rule 6 (iface -> IFACE INTERFACE FAMILY METHOD NEWLINE directives .)
+    IFACE           reduce using rule 6 (iface -> IFACE INTERFACE FAMILY METHOD NEWLINE directives .)
+    $end            reduce using rule 6 (iface -> IFACE INTERFACE FAMILY METHOD NEWLINE directives .)
+    DIRECTIVE       shift and go to state 16
+
+    directive                      shift and go to state 17
+
+state 15
+
+    (7) directives -> directive . NEWLINE
+
+    NEWLINE         shift and go to state 18
+
+
+state 16
+
+    (9) directive -> DIRECTIVE . IP
+
+    IP              shift and go to state 19
+
+
+state 17
+
+    (8) directives -> directives directive . NEWLINE
+
+    NEWLINE         shift and go to state 20
+
+
+state 18
+
+    (7) directives -> directive NEWLINE .
+
+    DIRECTIVE       reduce using rule 7 (directives -> directive NEWLINE .)
+    AUTO            reduce using rule 7 (directives -> directive NEWLINE .)
+    IFACE           reduce using rule 7 (directives -> directive NEWLINE .)
+    $end            reduce using rule 7 (directives -> directive NEWLINE .)
+
+
+state 19
+
+    (9) directive -> DIRECTIVE IP .
+
+    NEWLINE         reduce using rule 9 (directive -> DIRECTIVE IP .)
+
+
+state 20
+
+    (8) directives -> directives directive NEWLINE .
+
+    DIRECTIVE       reduce using rule 8 (directives -> directives directive NEWLINE .)
+    AUTO            reduce using rule 8 (directives -> directives directive NEWLINE .)
+    IFACE           reduce using rule 8 (directives -> directives directive NEWLINE .)
+    $end            reduce using rule 8 (directives -> directives directive NEWLINE .)
+

@@ -1,0 +1,4 @@
+antlr4-python3-runtime==4.13.1
+ply==3.11
+lark-parser==1.1.7
+matplotlib==3.8.0

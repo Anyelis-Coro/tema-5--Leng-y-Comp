@@ -1,0 +1,11 @@
+T__0=1
+T__1=2
+DIRECTIVE=3
+FAMILY=4
+METHOD=5
+ID=6
+IP=7
+NEWLINE=8
+WS=9
+'auto'=1
+'iface'=2
