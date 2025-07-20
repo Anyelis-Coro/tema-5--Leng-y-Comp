@@ -1,0 +1,175 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> interfaces
+Rule 1     interfaces -> interface
+Rule 2     interfaces -> interfaces interface
+Rule 3     interface -> AUTO INTERFACE_NAME
+Rule 4     interface -> IFACE INTERFACE_NAME FAMILY METHOD config_lines
+Rule 5     config_lines -> config_line
+Rule 6     config_lines -> config_lines config_line
+Rule 7     config_line -> DIRECTIVE IP_ADDRESS
+
+Terminals, with rules where they appear
+
+AUTO                 : 3
+DIRECTIVE            : 7
+FAMILY               : 4
+IFACE                : 4
+INTERFACE_NAME       : 3 4
+IP_ADDRESS           : 7
+METHOD               : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+config_line          : 5 6
+config_lines         : 4 6
+interface            : 1 2
+interfaces           : 2 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . interfaces
+    (1) interfaces -> . interface
+    (2) interfaces -> . interfaces interface
+    (3) interface -> . AUTO INTERFACE_NAME
+    (4) interface -> . IFACE INTERFACE_NAME FAMILY METHOD config_lines
+
+    AUTO            shift and go to state 3
+    IFACE           shift and go to state 4
+
+    interfaces                     shift and go to state 1
+    interface                      shift and go to state 2
+
+state 1
+
+    (0) S' -> interfaces .
+    (2) interfaces -> interfaces . interface
+    (3) interface -> . AUTO INTERFACE_NAME
+    (4) interface -> . IFACE INTERFACE_NAME FAMILY METHOD config_lines
+
+    AUTO            shift and go to state 3
+    IFACE           shift and go to state 4
+
+    interface                      shift and go to state 5
+
+state 2
+
+    (1) interfaces -> interface .
+
+    AUTO            reduce using rule 1 (interfaces -> interface .)
+    IFACE           reduce using rule 1 (interfaces -> interface .)
+    $end            reduce using rule 1 (interfaces -> interface .)
+
+
+state 3
+
+    (3) interface -> AUTO . INTERFACE_NAME
+
+    INTERFACE_NAME  shift and go to state 6
+
+
+state 4
+
+    (4) interface -> IFACE . INTERFACE_NAME FAMILY METHOD config_lines
+
+    INTERFACE_NAME  shift and go to state 7
+
+
+state 5
+
+    (2) interfaces -> interfaces interface .
+
+    AUTO            reduce using rule 2 (interfaces -> interfaces interface .)
+    IFACE           reduce using rule 2 (interfaces -> interfaces interface .)
+    $end            reduce using rule 2 (interfaces -> interfaces interface .)
+
+
+state 6
+
+    (3) interface -> AUTO INTERFACE_NAME .
+
+    AUTO            reduce using rule 3 (interface -> AUTO INTERFACE_NAME .)
+    IFACE           reduce using rule 3 (interface -> AUTO INTERFACE_NAME .)
+    $end            reduce using rule 3 (interface -> AUTO INTERFACE_NAME .)
+
+
+state 7
+
+    (4) interface -> IFACE INTERFACE_NAME . FAMILY METHOD config_lines
+
+    FAMILY          shift and go to state 8
+
+
+state 8
+
+    (4) interface -> IFACE INTERFACE_NAME FAMILY . METHOD config_lines
+
+    METHOD          shift and go to state 9
+
+
+state 9
+
+    (4) interface -> IFACE INTERFACE_NAME FAMILY METHOD . config_lines
+    (5) config_lines -> . config_line
+    (6) config_lines -> . config_lines config_line
+    (7) config_line -> . DIRECTIVE IP_ADDRESS
+
+    DIRECTIVE       shift and go to state 12
+
+    config_lines                   shift and go to state 10
+    config_line                    shift and go to state 11
+
+state 10
+
+    (4) interface -> IFACE INTERFACE_NAME FAMILY METHOD config_lines .
+    (6) config_lines -> config_lines . config_line
+    (7) config_line -> . DIRECTIVE IP_ADDRESS
+
+    AUTO            reduce using rule 4 (interface -> IFACE INTERFACE_NAME FAMILY METHOD config_lines .)
+    IFACE           reduce using rule 4 (interface -> IFACE INTERFACE_NAME FAMILY METHOD config_lines .)
+    $end            reduce using rule 4 (interface -> IFACE INTERFACE_NAME FAMILY METHOD config_lines .)
+    DIRECTIVE       shift and go to state 12
+
+    config_line                    shift and go to state 13
+
+state 11
+
+    (5) config_lines -> config_line .
+
+    DIRECTIVE       reduce using rule 5 (config_lines -> config_line .)
+    AUTO            reduce using rule 5 (config_lines -> config_line .)
+    IFACE           reduce using rule 5 (config_lines -> config_line .)
+    $end            reduce using rule 5 (config_lines -> config_line .)
+
+
+state 12
+
+    (7) config_line -> DIRECTIVE . IP_ADDRESS
+
+    IP_ADDRESS      shift and go to state 14
+
+
+state 13
+
+    (6) config_lines -> config_lines config_line .
+
+    DIRECTIVE       reduce using rule 6 (config_lines -> config_lines config_line .)
+    AUTO            reduce using rule 6 (config_lines -> config_lines config_line .)
+    IFACE           reduce using rule 6 (config_lines -> config_lines config_line .)
+    $end            reduce using rule 6 (config_lines -> config_lines config_line .)
+
+
+state 14
+
+    (7) config_line -> DIRECTIVE IP_ADDRESS .
+
+    DIRECTIVE       reduce using rule 7 (config_line -> DIRECTIVE IP_ADDRESS .)
+    AUTO            reduce using rule 7 (config_line -> DIRECTIVE IP_ADDRESS .)
+    IFACE           reduce using rule 7 (config_line -> DIRECTIVE IP_ADDRESS .)
+    $end            reduce using rule 7 (config_line -> DIRECTIVE IP_ADDRESS .)
+
